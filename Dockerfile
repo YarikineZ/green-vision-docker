@@ -1,14 +1,17 @@
-FROM shosoar/alpine-python-opencv
-MAINTAINER Jerome Vonk
+FROM python:3.7
 
+RUN pip3 install pipenv
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+COPY Pipfile ./
+COPY Pipfile.lock ./
+
+RUN set -ex && pipenv install --deploy --system
+
 
 COPY . .
 
-EXPOSE  80
+EXPOSE  5000
 
-CMD [ "python3", "./main.py" ]
+CMD [ "pipenv run python", "./main.py" ]
