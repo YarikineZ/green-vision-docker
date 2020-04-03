@@ -1,17 +1,13 @@
-FROM python:3.7
+FROM continuumio/miniconda
+RUN conda create -n env python=3.6
 
-RUN pip3 install pipenv
+COPY -r requirements.txt
 
 WORKDIR /usr/src/app
-
-COPY Pipfile ./
-COPY Pipfile.lock ./
-
-RUN set -ex && pipenv install --deploy --system
-
+RUN conda install -r requirements.txt
 
 COPY . .
 
 EXPOSE  5000
 
-CMD [ "pipenv run python", "./main.py" ]
+CMD [ "python", "./main.py" ]
