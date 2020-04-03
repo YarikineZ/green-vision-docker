@@ -1,12 +1,9 @@
 FROM continuumio/miniconda
-RUN conda create -n env python=3.6
-
-COPY -r requirements.txt
+RUN conda install python=3.6
 
 WORKDIR /usr/src/app
-RUN conda install -r requirements.txt
-
 COPY . .
+RUN conda install --file requirements.txt
 
 EXPOSE  5000
 
