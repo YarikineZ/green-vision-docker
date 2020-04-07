@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import sklearn
 from joblib import dump, load
 from random import randint
 import glob
@@ -48,14 +49,14 @@ class Analysis:
 
     def get_day(self):
         if self.area > 8000000:
-            self.day = 40
+            self.day = 30
         else:
             area = np.array([self.area])
             area = area[:, np.newaxis]
             day = self.area2day.predict(area)
             self.day = round(day[0], 2)
 
-        return self.day
+        return int(self.day+4)
 
 class Core(Frame, Analysis):
     def __init__(self, filename):
