@@ -35,9 +35,7 @@ class Analysis:
         self.area2day = load('area2day.joblib')
 
     def get_mass(self):
-        if self.area < 700000:
-            self.mass = 0
-        elif self.area > 8000000:
+        if self.area > 8000000:
             self.mass = 120
         else:
             area = np.array([self.area])
